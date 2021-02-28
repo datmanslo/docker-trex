@@ -19,10 +19,13 @@ services:
     networks:
       management:
         ipv4_address: 172.90.0.2
+        priority: 1000
       trex-1:
         ipv4_address: 172.100.0.2
+        priority: 900
       trex-2:
         ipv4_address: 172.200.0.2
+        priority: 800
     deploy:
       replicas: 1
       restart_policy:
@@ -45,10 +48,13 @@ services:
     networks:
       management:
         ipv4_address: 172.90.0.3
+        priority: 1000
       trex-1:
         ipv4_address: 172.100.0.3
+        priority: 900
       trex-2:
         ipv4_address: 172.200.0.3
+        priority: 800
     deploy:
       replicas: 1
       restart_policy:
