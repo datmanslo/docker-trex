@@ -1,10 +1,10 @@
 # docker-trex
 
-A simple example setup in Docker to explore [Cisco's TRex Packet Generator]:  
-
-- [Main Website](https://trex-tgn.cisco.com/)
-- [GitHub Repository](https://github.com/cisco-system-traffic-generator/trex-core)
-- [Cisco DevNet](https://developer.cisco.com/codeexchange/github/repo/cisco-system-traffic-generator/trex-core/)
+A simple example setup in Docker to explore Cisco's TRex Packet Generator:  
+- TRex Links:
+  - [Main Website](https://trex-tgn.cisco.com/)
+  - [GitHub Repository](https://github.com/cisco-system-traffic-generator/trex-core)
+  - [Cisco DevNet](https://developer.cisco.com/codeexchange/github/repo/cisco-system-traffic-generator/trex-core/)
 
 ## The Setup
 
