@@ -1,0 +1,9 @@
+- port_limit    : 2
+  version       : 2
+  low_end       : true
+  interfaces    : ["eth1", "eth2"]
+  port_info     :  # set eh mac addr
+                 - ip         : 172.100.0.2
+                   default_gw : 172.100.0.3
+                 - ip         : 172.200.0.2
+                   default_gw : 172.200.0.3

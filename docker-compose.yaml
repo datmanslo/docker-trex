@@ -1,0 +1,80 @@
+version: "3.9"
+services:
+  trex:
+    image: datmanslo/cisco-trex:2.88
+    build:
+      context: ./
+      dockerfile: trex.Dockerfile
+    container_name: "trex"
+    hostname: "trex"
+    stdin_open: true
+    tty: true   
+    ports:
+      - "4500:4500"
+      - "4501:4501"
+      - "4507:4507"
+      - "4500:4500/udp"
+      - "4501:4501/udp"
+      - "4507:4507/udp"
+    networks:
+      management:
+        ipv4_address: 172.90.0.2
+      trex-1:
+        ipv4_address: 172.100.0.2
+      trex-2:
+        ipv4_address: 172.200.0.2
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    command: ["./t-rex-64", "-i", "--cfg", "/etc/trex_cfg.yaml"]
+    privileged: true
+
+
+  dut:
+    image: datmanslo/trex-dut
+    container_name: "dut"
+    build:
+      context: ./
+      dockerfile: dut.Dockerfile
+    hostname: "dut"
+    depends_on:
+      - trex
+    stdin_open: true
+    tty: true   
+    networks:
+      management:
+        ipv4_address: 172.90.0.3
+      trex-1:
+        ipv4_address: 172.100.0.3
+      trex-2:
+        ipv4_address: 172.200.0.3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    command:
+      - sh 
+      - -c
+      - | 
+        ip route add 16.0.0.0/8 via 172.100.0.2
+        ip route add 48.0.0.0/8 via 172.200.0.2
+        exec sh
+    privileged: true
+
+networks:
+  management:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.90.0.0/24
+  trex-1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.100.0.0/24
+  trex-2:
+      ipam:
+        driver: default
+        config:
+          - subnet: 172.200.0.0/24
